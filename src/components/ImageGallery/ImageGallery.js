@@ -27,13 +27,19 @@ export default class ImageGallery extends Component {
         images: [],
       });
       this.renderGallery();
-      window.addEventListener('keydown', e => {
-        if (e.code === 'Escape') {
-          this.toggleModal();
-        }
-      });
+      window.addEventListener('keydown', this.handleKeyDown);
     }
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = e => {
+    if (e.code === 'Escape') {
+      this.toggleModal();
+    }
+  };
 
   renderGallery = () => {
     fetch(
