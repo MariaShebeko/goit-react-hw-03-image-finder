@@ -11,15 +11,18 @@ class App extends Component {
   };
 
   handleSearchBarSubmit = imageName => {
-    console.log(imageName);
     this.setState({ imageName });
   };
+
   render() {
     return (
       <>
         <div>
           <Searchbar onSubmit={this.handleSearchBarSubmit} />
-          <ImageGallery imageName={this.state.imageName} />
+          <ImageGallery
+            imageName={this.state.imageName}
+            // onClick={this.onImageClick}
+          />
           <ToastContainer />
         </div>
       </>

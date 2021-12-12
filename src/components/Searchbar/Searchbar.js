@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FaSistrix } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import s from './Searchbar.module.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Searchbar extends Component {
   state = {
