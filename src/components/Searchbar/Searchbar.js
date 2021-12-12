@@ -18,13 +18,13 @@ class Searchbar extends Component {
 
     if (this.state.imageName.trim() === '') {
       return toast.error('Press the name of the image!', {
-        position: 'top-center',
+        position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        theme: 'dark',
       });
     }
     this.props.onSubmit(this.state.imageName);
