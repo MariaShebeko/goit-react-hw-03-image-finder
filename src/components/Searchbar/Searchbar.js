@@ -38,7 +38,6 @@ class Searchbar extends Component {
           <button type="submit" className={s.SearchFormButton}>
             <span className={s.label}>Search</span> <FaSistrix />
           </button>
-
           <input
             onChange={this.handleNameChange}
             className={s.input}

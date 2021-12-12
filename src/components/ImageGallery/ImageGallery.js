@@ -94,7 +94,7 @@ export default class ImageGallery extends Component {
     const { images, error, status, showModal, modalUrl, modalAlt } = this.state;
 
     if (status === 'idle') {
-      return <div>Press the name of the image</div>;
+      return <div className={s.text}>Press the name of the image</div>;
     }
 
     if (status === 'pending') {

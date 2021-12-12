@@ -1,7 +1,10 @@
+import { BiLoader } from 'react-icons/bi';
+import s from './LoadMoreButton.module.css';
+
 const LoadMoreButton = ({ onClick }) => {
   return (
-    <button type="button" onClick={() => onClick()}>
-      Load more
+    <button className={s.button} type="button" onClick={() => onClick()}>
+      <BiLoader className={s.icon} /> <span>Load more</span>
     </button>
   );
 };
