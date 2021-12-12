@@ -46,29 +46,29 @@ export default class ImageGallery extends Component {
         return data.hits;
       })
       .then(images => {
+        console.log(images);
+
         return this.setState(prevState => {
           return {
             images: [...prevState.images, ...images],
             status: 'resolved',
-            page: prevState.page + 1,
             loading: false,
+            modalUrl: images.largeImageURL,
           };
         });
       })
       .catch(error => this.setState({ error, status: 'rejected' }));
+    this.toIncreasePage();
   };
 
   toIncreasePage = () => {
     this.setState(prevState => {
-      if (this.state.images.length > 1) {
-        return { page: prevState.page };
-      }
+      return { page: prevState.page + 1 };
     });
   };
 
   onLoadMore = () => {
     this.setState({ loading: true });
-    this.toIncreasePage();
     this.renderGallery();
   };
 
@@ -79,13 +79,20 @@ export default class ImageGallery extends Component {
   };
 
   onImageClick = e => {
+    const { images } = this.state;
     console.dir(e.target);
 
     if (e.target.nodeName !== 'IMG') {
       return;
     }
-    const imageModal = e.target.getAttribute('src');
+    const currentImageId = +e.target.id;
+    const currentIndex = images.findIndex(image => image.id === currentImageId);
+    const imageModal = images[currentIndex].largeImageURL;
+    // const imageModal = imageModalIndex.largeImageURL;
     const altModal = e.target.getAttribute('alt');
+    console.log('modalUrl', imageModal);
+    console.log(currentImageId);
+
     this.setState({
       showModal: true,
       modalUrl: imageModal,
@@ -112,17 +119,19 @@ export default class ImageGallery extends Component {
       return (
         <>
           <ul className={s.ImageGallery}>
-            {images.map(image => {
-              return (
-                <ImageGalleryItem
-                  key={image.id}
-                  src={image.webformatURL}
-                  alt={image.tags}
-                  srcmodal={image.largeImageURL}
-                  onClick={this.onImageClick}
-                />
-              );
-            })}
+            {images &&
+              images.map(image => {
+                return (
+                  <ImageGalleryItem
+                    key={image.id}
+                    id={image.id}
+                    src={image.webformatURL}
+                    alt={image.tags}
+                    srcmodal={image.largeImageURL}
+                    onClick={this.onImageClick}
+                  />
+                );
+              })}
           </ul>
           {showModal && (
             <Modal

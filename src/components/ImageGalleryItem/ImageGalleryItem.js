@@ -4,6 +4,7 @@ const ImageGalleryItem = ({ src, alt, largeImage, id, onClick }) => {
   return (
     <li className={s.ImageGalleryItem} key={id}>
       <img
+        id={id}
         src={src}
         alt={alt}
         srcmodal={largeImage}
