@@ -10,7 +10,7 @@ class Searchbar extends Component {
   };
 
   handleNameChange = event => {
-    this.setState({ imageName: event.target.value.toLowerCase() });
+    this.setState({ imageName: event.currentTarget.value.toLowerCase() });
   };
 
   handleNameSubmit = event => {
@@ -32,6 +32,7 @@ class Searchbar extends Component {
   };
 
   render() {
+    const { imageName } = this.state;
     return (
       <header className={s.Searchbar}>
         <form className={s.SearchForm} onSubmit={this.handleNameSubmit}>
@@ -40,6 +41,7 @@ class Searchbar extends Component {
           </button>
           <input
             onChange={this.handleNameChange}
+            value={imageName}
             className={s.input}
             type="text"
             autoComplete="off"

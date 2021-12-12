@@ -12,9 +12,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-height: 300px;
-  max-width: 600px;
-  width: 100%;
+  max-height: calc(100vh - 50px);
+  max-width: calc(100vw - 100px);
   padding: 12px;
   background-color: #fff;
   border-radius: 3px;
