@@ -17,7 +17,7 @@ class Searchbar extends Component {
     event.preventDefault();
 
     if (this.state.imageName.trim() === '') {
-      return toast.error('Press the name of the image!', {
+      return toast.warning('Press the name of the image!', {
         position: 'top-right',
         autoClose: 3000,
         hideProgressBar: false,

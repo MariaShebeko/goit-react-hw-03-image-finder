@@ -27,6 +27,11 @@ export default class ImageGallery extends Component {
         images: [],
       });
       this.renderGallery();
+      window.addEventListener('keydown', e => {
+        if (e.code === 'Escape') {
+          this.toggleModal();
+        }
+      });
     }
   }
 
