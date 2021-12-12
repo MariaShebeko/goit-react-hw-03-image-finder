@@ -1,4 +1,5 @@
 import { Component } from 'react';
+// import fetchImages from '../../services/imageAPI';
 import ImageGalleryItem from '../ImageGalleryItem';
 import ImageErrorView from './GalleryErrorView/GalleryErrorView';
 import ImageLoader from '../Loader';
@@ -27,19 +28,8 @@ export default class ImageGallery extends Component {
         images: [],
       });
       this.renderGallery();
-      window.addEventListener('keydown', this.handleKeyDown);
     }
   }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
-
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      this.toggleModal();
-    }
-  };
 
   renderGallery = () => {
     fetch(
@@ -89,6 +79,8 @@ export default class ImageGallery extends Component {
   };
 
   onImageClick = e => {
+    console.dir(e.target);
+
     if (e.target.nodeName !== 'IMG') {
       return;
     }
@@ -126,14 +118,18 @@ export default class ImageGallery extends Component {
                   key={image.id}
                   src={image.webformatURL}
                   alt={image.tags}
-                  data-src={image.largeImageURL}
+                  srcmodal={image.largeImageURL}
                   onClick={this.onImageClick}
                 />
               );
             })}
           </ul>
           {showModal && (
-            <Modal src={modalUrl} alt={modalAlt} onClose={this.toggleModal} />
+            <Modal
+              onClose={this.toggleModal}
+              modalUrl={modalUrl}
+              modalAlt={modalAlt}
+            />
           )}
           {this.state.images.length > 0 && !this.state.loading && (
             <LoadMoreButton onClick={this.onLoadMore} />
