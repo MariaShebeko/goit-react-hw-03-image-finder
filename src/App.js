@@ -1,6 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
+// import fetchImages from './services/imageAPI';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import ImageErrorView from './components/ImageGallery/GalleryErrorView/GalleryErrorView';
@@ -44,7 +45,6 @@ class App extends Component {
         if (res.ok) {
           return res.json();
         }
-        // 404 не отображается
         return Promise.reject(new Error('No images with this name'));
       })
       .then(data => {
@@ -67,6 +67,14 @@ class App extends Component {
   onLoadMore = () => {
     this.setState({ loading: true });
     this.renderGallery();
+    const options = {
+      top: null,
+      behavior: 'smooth',
+    };
+    options.top = window.pageYOffset + document.documentElement.clientHeight;
+    setTimeout(() => {
+      window.scrollTo(options);
+    }, 1000);
   };
 
   toggleModal = () => {

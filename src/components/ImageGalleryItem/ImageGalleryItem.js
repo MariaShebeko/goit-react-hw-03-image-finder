@@ -1,11 +1,10 @@
+import PropTypes from 'prop-types';
 import s from './ImageGalleryItem.module.css';
 
 const ImageGalleryItem = (
   { webformatURL, tags, largeImageURL, id },
   onClick,
 ) => {
-  // console.log(src, alt, largeImage, id);
-
   return (
     <li className={s.ImageGalleryItem} key={`id_${id}`}>
       <img
@@ -20,4 +19,11 @@ const ImageGalleryItem = (
   );
 };
 
+ImageGalleryItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 export default ImageGalleryItem;

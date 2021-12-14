@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FaSistrix } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import s from './Searchbar.module.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 class Searchbar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   state = {
     imageName: '',
   };
