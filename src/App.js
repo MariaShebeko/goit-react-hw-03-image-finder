@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
-// import fetchImages from './services/imageAPI';
+import toastify from './helpers/toastify';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import ImageErrorView from './components/ImageGallery/GalleryErrorView/GalleryErrorView';
@@ -38,8 +38,9 @@ class App extends Component {
   }
 
   renderGallery = () => {
+    const { imageName, page } = this.state;
     fetch(
-      `${BASE_URL}?q=${this.state.imageName}&page=${this.state.page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
+      `${BASE_URL}?q=${imageName}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
     )
       .then(res => {
         if (res.ok) {
@@ -51,6 +52,9 @@ class App extends Component {
         return data.hits;
       })
       .then(images => {
+        if (images.length === 0) {
+          toastify('Nothing found on your request!');
+        }
         return this.setState(prevState => {
           return {
             images: [...prevState.images, ...images],
@@ -84,15 +88,12 @@ class App extends Component {
   };
 
   onImageClick = e => {
-    const { images } = this.state;
     if (e.target.nodeName !== 'IMG') {
       return;
     }
     e.preventDefault();
 
-    const currentImageId = +e.target.id;
-    const currentIndex = images.findIndex(image => image.id === currentImageId);
-    const imageModal = images[currentIndex].largeImageURL;
+    const imageModal = e.target.getAttribute('srcmodal');
     const altModal = e.target.getAttribute('alt');
 
     this.setState({

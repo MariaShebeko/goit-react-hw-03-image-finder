@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FaSistrix } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import toastify from '../../helpers/toastify';
 import s from './Searchbar.module.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -22,15 +22,7 @@ class Searchbar extends Component {
     event.preventDefault();
 
     if (this.state.imageName.trim() === '') {
-      return toast.warning('Press the name of the image!', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: 'dark',
-      });
+      toastify('Press the name of the image!');
     }
     this.props.onSubmit(this.state.imageName);
     this.setState({ imageName: '' });
