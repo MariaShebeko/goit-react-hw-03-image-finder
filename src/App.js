@@ -2,6 +2,7 @@ import './App.css';
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import toastify from './helpers/toastify';
+import imageAPI from './services/image-api';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import ImageErrorView from './components/ImageGallery/GalleryErrorView/GalleryErrorView';
@@ -9,9 +10,6 @@ import ImageLoader from './components/Loader';
 import LoadMoreButton from './components/LoadMoreButton';
 import Modal from './components/Modal';
 import s from './components/ImageGallery/ImageGallery.module.css';
-
-const API_KEY = '23951703-436932e17dab2edd529d032c5';
-const BASE_URL = 'https://pixabay.com/api/';
 
 class App extends Component {
   state = {
@@ -39,15 +37,8 @@ class App extends Component {
 
   renderGallery = () => {
     const { imageName, page } = this.state;
-    fetch(
-      `${BASE_URL}?q=${imageName}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`,
-    )
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(new Error('No images with this name'));
-      })
+    imageAPI
+      .fetchImage(imageName, page)
       .then(data => {
         return data.hits;
       })
